@@ -1,9 +1,7 @@
 import java.io.IOException;
 import java.net.*;
 import ConnectionHandling.*;
-import Interface.InitialisationMessages;
-import Interface.NoSuchOrderException;
-import Interface.OrderList;
+import Interface.*;
 
 public class MainClass {
 
