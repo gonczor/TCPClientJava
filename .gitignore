@@ -14,3 +14,4 @@ hs_err_pid*
 #workspaces
 ./idea/workspace
 workspace*
+*.xml
