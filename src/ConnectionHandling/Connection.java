@@ -3,8 +3,6 @@ package ConnectionHandling;
 import java.io.*;
 import java.net.*;
 
-import Interface.NoSuchOrderException;
-
 public class Connection {
 
     //TODO
