@@ -1,4 +1,4 @@
-package Interface;
+package ConnectionHandling;
 
 public class NoSuchOrderException
         extends Exception {

@@ -1,7 +1,6 @@
 package Interface;
 
 import ConnectionHandling.Connection;
-import Interface.PrintStatements;
 
 public class InitialisationMessages {
 

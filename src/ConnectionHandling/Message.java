@@ -1,8 +1,5 @@
 package ConnectionHandling;
 
-import Interface.NoSuchOrderException;
-import Interface.OrderList;
-
 public class Message {
 
     Order order;
