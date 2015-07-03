@@ -1,17 +1,16 @@
 package ConnectionHandling;
 
-public class Message {
+public class OrderToServer {
 
     Order order;
 
-    public Message(OrderList orderList)
+    public OrderToServer(OrderList orderList)
             throws NoSuchOrderException{
 
         switch (orderList) {
             case WELCOME:
                 order = new OrderWelcomeMessage();
                 break;
-
             default:
                 throw new NoSuchOrderException();
         }
@@ -22,9 +21,20 @@ public class Message {
         return order.toString();
     }
 
-    interface Order{
+    public static String showAvailableOrders(){
 
+        String availableOrders = new String();
+
+        for(OrderList ol : OrderList.values()){
+
+            availableOrders += ol.toString();
+            availableOrders += "\n";
+        }
+
+        return availableOrders;
     }
+
+    interface Order{}
 
     class OrderWelcomeMessage
             implements Order{

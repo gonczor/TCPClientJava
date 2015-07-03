@@ -4,6 +4,10 @@ package ConnectionHandling;
 public enum OrderList {
 
     WELCOME,
-    receiveFile,
-    sendFile;
+    RECEIVEFILE,
+    SENDFILE;
+
+    public String toString(OrderList orderList) {
+        return orderList.toString();
+    }
 }

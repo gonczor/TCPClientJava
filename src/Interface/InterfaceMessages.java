@@ -2,7 +2,7 @@ package Interface;
 
 import ConnectionHandling.Connection;
 
-public class InitialisationMessages {
+public class InterfaceMessages {
 
     public static void connectionOK(Connection connection) {
 

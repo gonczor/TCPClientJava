@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.net.*;
 import ConnectionHandling.*;
 import Interface.*;
+//import com.sun.jmx.remote.util.OrderClassLoaders;
 
 public class MainClass {
 
@@ -13,9 +14,8 @@ public class MainClass {
         try{
 
             handleNewConnectionCreation(connection);
-            connection.setNewMessageToSend(OrderList.WELCOME);
+            connection.setNewOrderToSend(OrderList.WELCOME);
             handleExistingConnection(connection);
-
         } catch (UnknownHostException e) {
 
             System.err.println(e.getMessage());
@@ -34,13 +34,12 @@ public class MainClass {
     static void handleNewConnectionCreation (Connection connection)
             throws IOException{
         connection.EstablishConnection();
-        InitialisationMessages.connectionOK(connection);
+        InterfaceMessages.connectionOK(connection);
     }
 
     static void handleExistingConnection(Connection connection)
             throws IOException{
-        connection.sendMessage();
+        connection.sendOrder();
         connection.endConnection();
-
     }
 }

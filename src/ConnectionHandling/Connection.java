@@ -10,7 +10,7 @@ public class Connection {
 
     private Socket socket;
     private PrintWriter printWriter;
-    private Message message;
+    private OrderToServer orderToServer;
 
     private final String ADDRESS = "127.0.0.1";
     private final Integer portNumber = 12345;
@@ -22,15 +22,15 @@ public class Connection {
         printWriter = new PrintWriter(socket.getOutputStream(), true);
     }
 
-    public void setNewMessageToSend(OrderList orderList)
+    public void setNewOrderToSend(OrderList orderList)
             throws NoSuchOrderException{
-        message = new Message(orderList);
+        orderToServer = new OrderToServer(orderList);
     }
 
-    public void sendMessage()
+    public void sendOrder()
             throws IOException{
 
-        printWriter.println(message.sendOrderToServer());
+        printWriter.println(orderToServer.sendOrderToServer());
     }
 
     public String receiveMessage()
