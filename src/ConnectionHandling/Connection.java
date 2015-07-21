@@ -10,9 +10,10 @@ public class Connection {
 
     private Socket socket;
     private PrintWriter printWriter;
+    private BufferedReader bufferedReader;
     private OrderToServer orderToServer;
 
-    private final String ADDRESS = "127.0.0.1";
+    private final String ADDRESS = "127.0.0.1"; //192.168.1.2
     private final Integer portNumber = 12345;
 
     public void EstablishConnection()
@@ -20,6 +21,7 @@ public class Connection {
 
         socket = new Socket(ADDRESS, portNumber);
         printWriter = new PrintWriter(socket.getOutputStream(), true);
+        bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
 
     public void setNewOrderToSend(OrderList orderList)
@@ -36,9 +38,9 @@ public class Connection {
     public String receiveMessage()
             throws IOException{
 
-        //TODO
-        //temporary solution
-        return "Message"; //dataInputStream.readUTF();
+        String receivedMessage;
+        receivedMessage = bufferedReader.readLine();
+        return receivedMessage;
     }
 
     public void endConnection()

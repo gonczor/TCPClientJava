@@ -40,6 +40,7 @@ public class MainClass {
     static void handleExistingConnection(Connection connection)
             throws IOException{
         connection.sendOrder();
+        System.out.println(connection.receiveMessage());
         connection.endConnection();
     }
 }
