@@ -1,15 +1,18 @@
 package ConnectionHandling;
 
-public class OrderToServer {
+public class Order {
 
-    Order order;
+    OrderFromList orderFromList;
 
-    public OrderToServer(OrderList orderList)
+    public Order(OrderList orderList)
             throws NoSuchOrderException{
 
         switch (orderList) {
             case WELCOME:
-                order = new OrderWelcomeMessage();
+                orderFromList = new OrderWelcomeMessage();
+                break;
+            case SENDFILE:
+                orderFromList = new OrderSendFile();
                 break;
             default:
                 throw new NoSuchOrderException();
@@ -18,7 +21,7 @@ public class OrderToServer {
 
     public String sendOrderToServer(){
 
-        return order.toString();
+        return orderFromList.toString();
     }
 
     public static String showAvailableOrders(){
@@ -34,13 +37,21 @@ public class OrderToServer {
         return availableOrders;
     }
 
-    interface Order{}
+    abstract class OrderFromList{}
 
     class OrderWelcomeMessage
-            implements Order{
+            extends OrderFromList{
 
         public String toString(){
             return "Hello world!";
+        }
+    }
+
+    class OrderSendFile
+            extends OrderFromList{
+
+        public String toString(){
+            return "Send File";
         }
     }
 }
