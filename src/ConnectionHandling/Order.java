@@ -37,6 +37,9 @@ public class Order {
         return availableOrders;
     }
 
+    //TODO
+    //I don't know whether this is best approach
+    //I fear that the names are misleading
     abstract class OrderFromList{}
 
     class OrderWelcomeMessage

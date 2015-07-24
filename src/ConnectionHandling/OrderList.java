@@ -4,8 +4,8 @@ package ConnectionHandling;
 public enum OrderList {
 
     WELCOME,
-    RECEIVEFILE,
-    SENDFILE;
+    SENDFILE,
+    EXIT;
 
     public String toString(OrderList orderList) {
         return orderList.toString();

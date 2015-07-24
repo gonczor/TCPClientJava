@@ -5,13 +5,10 @@ import java.net.*;
 
 public class Connection {
 
-    //TODO
-    //test image sending
-
     private Socket socket;
     private PrintWriter printWriter;
     private BufferedReader bufferedReader;
-    private OrderToServer orderToServer;
+    private Order order;
 
     private final String ADDRESS = "127.0.0.1"; //192.168.1.2
     private final Integer portNumber = 12345;
@@ -26,13 +23,13 @@ public class Connection {
 
     public void setNewOrderToSend(OrderList orderList)
             throws NoSuchOrderException{
-        orderToServer = new OrderToServer(orderList);
+        order = new Order(orderList);
     }
 
     public void sendOrder()
             throws IOException{
 
-        printWriter.println(orderToServer.sendOrderToServer());
+        printWriter.println(order.sendOrderToServer());
     }
 
     public String receiveMessage()

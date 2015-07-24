@@ -13,16 +13,12 @@ public class MainClass {
 
         try{
 
-            handleNewConnectionCreation(connection);
-            connection.setNewOrderToSend(OrderList.WELCOME);
-            handleExistingConnection(connection);
+            setupNewConnection(connection);
+            handleConnection(connection);
         } catch (UnknownHostException e) {
 
             System.err.println(e.getMessage());
-        } catch (NoSuchOrderException e) {
-
-            System.err.println(e.getMessage());
-        } catch (IOException e) {
+        }  catch (IOException e) {
 
             System.err.println(e.getMessage());
         } finally {
@@ -31,16 +27,48 @@ public class MainClass {
         }
     }
 
-    static void handleNewConnectionCreation (Connection connection)
+    static void setupNewConnection(Connection connection)
             throws IOException{
         connection.EstablishConnection();
         InterfaceMessages.connectionOK(connection);
     }
 
-    static void handleExistingConnection(Connection connection)
+    static void handleConnection(Connection connection)
             throws IOException{
+        /*
+        TODO
+        user gets welcome message and is asked to type in order, or press l to list available orders
+        [orders displayed]
+        order read
+        if no such order exception, order to type in again
+        if exit, then return
+        otherwise send order to server
+        handle connection
+         */
+        String receivedOrder;
+        boolean reiterateAfterBadOrderEntry;
+
+        InterfaceMessages.initialMessage();
         connection.sendOrder();
-        System.out.println(connection.receiveMessage());
-        connection.endConnection();
+        receivedOrder = InterfaceInput.getOrder();
+        //TODO get rid of these temporary solutions
+        do{
+            reiterateAfterBadOrderEntry = false;
+            try{
+
+                connection.setNewOrderToSend(OrderList.WELCOME);
+                //set new order
+            } catch (NoSuchOrderException e){
+
+                System.err.println(e.getMessage());
+                reiterateAfterBadOrderEntry = true;
+            }finally {
+
+                connection.endConnection();
+            }
+        }while (reiterateAfterBadOrderEntry);
+
+
+        //System.out.println(connection.receiveMessage());
     }
 }

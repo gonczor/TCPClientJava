@@ -10,4 +10,9 @@ public class InterfaceMessages {
         PrintStatements.print("Host: " + connection.getHostAddress());
         PrintStatements.print("On port: " + connection.getPortNumber());
     }
+
+    public static void initialMessage(){
+
+        PrintStatements.print("Please enter order, or type in \'l\' to list available orders");
+    }
 }

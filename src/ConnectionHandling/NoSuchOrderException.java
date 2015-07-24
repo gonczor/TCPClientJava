@@ -5,6 +5,6 @@ public class NoSuchOrderException
     @Override
     public String getMessage(){
 
-        return "No such order.";
+        return "No such orderFromList.";
     }
 }
