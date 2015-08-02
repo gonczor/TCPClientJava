@@ -1,10 +1,23 @@
 package Interface;
 
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 public class InterfaceInput {
 
-    public static String getOrder(){
+    private BufferedReader bufferedReader;
+
+    public InterfaceInput(){
+
+        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+
+    public String getOrder(){
+
 
         return "";
     }
+
 }

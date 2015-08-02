@@ -29,7 +29,8 @@ public class Connection {
     public void sendOrder()
             throws IOException{
 
-        printWriter.println(order.sendOrderToServer());
+        printWriter.print(order.sendOrderToServer());
+        printWriter.flush();
     }
 
     public String receiveMessage()
