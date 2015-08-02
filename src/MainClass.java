@@ -41,39 +41,56 @@ public class MainClass {
 
     void handleConnection()
             throws IOException{
-        /*
-        TODO
-        user gets welcome message and is asked to type in order, or press l to list available orders
-        [orders displayed]
-        order read
-        if no such order exception, order to type in again
-        if exit, then return
-        otherwise send order to server
-        handle connection
-         */
-        String receivedOrder;
+
         boolean reiterateAfterBadOrderEntry;
 
         InterfaceMessages.initialMessage();
 
-        receivedOrder = interfaceInput.getOrder();
-        //TODO get rid of these temporary solutions
         do{
             reiterateAfterBadOrderEntry = false;
             try{
 
-                connection.setNewOrderToSend(OrderList.WELCOME);
-                connection.sendOrder();
+                handleOrder();
+                System.out.println(connection.receiveMessage());
             } catch (NoSuchOrderException e){
 
                 System.err.println(e.getMessage());
                 reiterateAfterBadOrderEntry = true;
-            }finally {
-
-                System.out.println(connection.receiveMessage());
-                connection.endConnection();
             }
-        }while (reiterateAfterBadOrderEntry);
+        } while (reiterateAfterBadOrderEntry);
+
+        connection.endConnection();
+    }
+
+    void handleOrder()
+            throws IOException, NoSuchOrderException{
+
+        String receivedOrder;
+
+        receivedOrder = interfaceInput.getOrder();
+        OrderList orderFromList = Order.stringToOrderList(receivedOrder);
+
+        if (showListChosen(orderFromList)){
+
+            System.out.println(Order.showAvailableOrders());
+            receivedOrder = interfaceInput.getOrder();
+            orderFromList = Order.stringToOrderList(receivedOrder);
+        }
+
+        connection.setNewOrderToSend(orderFromList);
+        connection.sendOrder();
 
     }
+
+    private boolean showListChosen(OrderList orderList){
+
+        return orderList == OrderList.LIST;
+    }
+
+    //TODO temporarily unavailable. To be implemented in final version
+    /*
+    private boolean exitChosen(OrderList orderList){
+
+        return orderList == OrderList.EXIT;
+    }*/
 }

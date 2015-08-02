@@ -2,6 +2,7 @@ package Interface;
 
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class InterfaceInput {
@@ -14,10 +15,10 @@ public class InterfaceInput {
     }
 
 
-    public String getOrder(){
+    public String getOrder()
+            throws IOException{
 
-
-        return "";
+        return bufferedReader.readLine();
     }
 
 }

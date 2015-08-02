@@ -7,16 +7,33 @@ public class Order {
     public Order(OrderList orderList)
             throws NoSuchOrderException{
 
+        /*
+         * only orders that have anything to do with communication
+         * with server are dealt with here
+         */
+
         switch (orderList) {
             case WELCOME:
                 orderFromList = new OrderWelcomeMessage();
                 break;
-            case SENDFILE:
+            case SEND_FILE:
                 orderFromList = new OrderSendFile();
                 break;
-            default:
-                throw new NoSuchOrderException();
         }
+    }
+
+    public static OrderList stringToOrderList(String orderString)
+            throws NoSuchOrderException{
+
+        if (orderString.equalsIgnoreCase("welcome"))
+            return OrderList.WELCOME;
+        else if (orderString.equalsIgnoreCase("send file"))
+            return OrderList.SEND_FILE;
+        else if (orderString.equalsIgnoreCase("l"))
+            return OrderList.LIST;
+        else
+            throw new NoSuchOrderException();
+
     }
 
     public String sendOrderToServer(){
