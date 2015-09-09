@@ -1,6 +1,6 @@
 package ConnectionHandling;
 
-public class NoSuchOrderException
+public class BadOrderException
         extends Exception {
     @Override
     public String getMessage(){
