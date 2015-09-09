@@ -1,7 +1,11 @@
 package ConnectionHandling;
 
-/**
- * Created by gonczor on 09.09.15.
- */
-public class BadFeedbackOrderFromServer {
+public class BadFeedbackOrderFromServer
+        extends BadOrderException{
+
+    @Override
+    public String getMessage(){
+
+        return "Error occurred while checking order from server.\nConnection shut down.";
+    }
 }

@@ -2,10 +2,10 @@ package ConnectionHandling;
 
 public class Order {
 
-    OrderFromList orderFromList;
+    private OrderFromList orderFromList;
 
     public Order(OrderList orderList)
-            throws NoSuchOrderException{
+            throws BadOrderException {
 
         /*
          * only orders that have anything to do with communication
@@ -23,7 +23,7 @@ public class Order {
     }
 
     public static OrderList stringToOrderList(String orderString)
-            throws NoSuchOrderException{
+            throws BadOrderException {
 
         if (orderString.equalsIgnoreCase("welcome"))
             return OrderList.WELCOME;
@@ -32,16 +32,16 @@ public class Order {
         else if (orderString.equalsIgnoreCase("l"))
             return OrderList.LIST;
         else
-            throw new NoSuchOrderException();
+            throw new BadOrderException();
 
     }
 
-    public String sendOrderToServer(){
+    public String setOrderContent(){
 
         return orderFromList.toString();
     }
 
-    public static String showAvailableOrders(){
+    public static String giveListOfAvailableOrders(){
 
         String availableOrders = new String();
 
@@ -54,21 +54,18 @@ public class Order {
         return availableOrders;
     }
 
-    //TODO
-    //I don't know whether this is best approach
-    //I fear that the names are misleading
-    abstract class OrderFromList{}
+    private interface OrderFromList{}
 
-    class OrderWelcomeMessage
-            extends OrderFromList{
+    private class OrderWelcomeMessage
+            implements OrderFromList{
 
         public String toString(){
             return "Hello world!";
         }
     }
 
-    class OrderSendFile
-            extends OrderFromList{
+    private class OrderSendFile
+            implements OrderFromList{
 
         public String toString(){
             return "Send File";

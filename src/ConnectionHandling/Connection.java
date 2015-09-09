@@ -21,15 +21,21 @@ public class Connection {
         bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
 
-    public void setNewOrderToSend(OrderList orderList)
-            throws NoSuchOrderException{
+    public void setOrderFromOrderList(OrderList orderList)
+            throws BadOrderException {
         order = new Order(orderList);
+    }
+
+    public Order returnOrderFromOrderList(OrderList orderList)
+            throws BadOrderException {
+
+        return new Order(orderList);
     }
 
     public void sendOrder()
             throws IOException{
 
-        printWriter.print(order.sendOrderToServer());
+        printWriter.print(order.setOrderContent());
         printWriter.flush();
     }
 
@@ -40,6 +46,29 @@ public class Connection {
         receivedMessage = bufferedReader.readLine();
         return receivedMessage;
     }
+
+    public void checkInitialMessage()
+            throws IOException, BadOrderException {
+
+        String receivedFeedbackMessage = receiveMessage();
+        OrderList receivedFeedbackOrderList = Order.stringToOrderList(receivedFeedbackMessage);
+        Order receivedFeedbackOrder = returnOrderFromOrderList(receivedFeedbackOrderList);
+        if (!receivedFeedbackOrder.equals(order)){
+            throw new BadFeedbackOrderFromServer();
+        }
+    }
+
+    /*
+    Since the correctness of received order has been checked
+    passing orders entered by user is possible and safe.
+    */
+    public void receiveData(){
+
+        switch (){
+
+        }
+    }
+
 
     public void endConnection()
             throws IOException{

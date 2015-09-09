@@ -5,6 +5,6 @@ public class BadOrderException
     @Override
     public String getMessage(){
 
-        return "No such orderFromList.";
+        return "Error occurred while entering order.";
     }
 }

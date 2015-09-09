@@ -20,10 +20,10 @@ public class MainClass {
             mainClass.handleConnection();
         } catch (UnknownHostException e) {
 
-            System.err.println(e.getMessage());
+            InterfaceMessages.errorMessages(e);
         }  catch (IOException e) {
 
-            System.err.println(e.getMessage());
+            InterfaceMessages.errorMessages(e);
         } finally {
 
             System.out.println("End");
@@ -51,10 +51,12 @@ public class MainClass {
             try{
 
                 handleOrder();
+                //TODO create the handling of received data
                 System.out.println(connection.receiveMessage());
-            } catch (NoSuchOrderException e){
+                handleDataReceiving();
+            } catch (BadOrderException e){
 
-                System.err.println(e.getMessage());
+                InterfaceMessages.errorMessages(e);
                 reiterateAfterBadOrderEntry = true;
             }
         } while (reiterateAfterBadOrderEntry);
@@ -63,29 +65,58 @@ public class MainClass {
     }
 
     void handleOrder()
-            throws IOException, NoSuchOrderException{
+            throws IOException, BadOrderException {
 
-        String receivedOrder;
+        String receivedOrder = new String();
 
-        receivedOrder = interfaceInput.getOrder();
-        OrderList orderFromList = Order.stringToOrderList(receivedOrder);
+        OrderList orderFromList = interpretOrderFromUser(receivedOrder);
 
         if (showListChosen(orderFromList)){
 
-            System.out.println(Order.showAvailableOrders());
-            receivedOrder = interfaceInput.getOrder();
-            orderFromList = Order.stringToOrderList(receivedOrder);
+            System.out.println(Order.giveListOfAvailableOrders());
+            orderFromList = interpretOrderFromUser(receivedOrder);
         }
 
-        connection.setNewOrderToSend(orderFromList);
+        connection.setOrderFromOrderList(orderFromList);
         connection.sendOrder();
+    }
 
+    private OrderList interpretOrderFromUser(String receivedOrder)
+            throws IOException, BadOrderException{
+        receivedOrder = interfaceInput.getOrder();
+        return Order.stringToOrderList(receivedOrder);
     }
 
     private boolean showListChosen(OrderList orderList){
 
         return orderList == OrderList.LIST;
     }
+
+    /*
+    Description of algorithm:
+    1. The server sends message saying what it will do next. This is to
+    prevent unexpected behavior if the order was interpreted wrong.
+    2. At this level an exception can be thrown to be handled and send or
+    insert order by user again
+    3. Then the server performs ordered action: sends message, file or specified data.
+     */
+
+    private void handleDataReceiving()
+            throws IOException, BadOrderException {
+
+        try {
+            connection.checkInitialMessage();
+            connection.receiveData();
+        }
+        catch (BadFeedbackOrderFromServer e){
+
+            //TODO this needs to close connection not receiving any data
+            //but not end the whole programme
+            connection.endConnection();
+            InterfaceMessages.errorMessages(e);
+        }
+    }
+
 
     //TODO temporarily unavailable. To be implemented in final version
     /*
