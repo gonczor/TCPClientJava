@@ -51,8 +51,6 @@ public class MainClass {
             try{
 
                 handleOrder();
-                //TODO create the handling of received data
-                System.out.println(connection.receiveMessage());
                 handleDataReceiving();
             } catch (BadOrderException e){
 
@@ -67,24 +65,21 @@ public class MainClass {
     void handleOrder()
             throws IOException, BadOrderException {
 
-        String receivedOrder = new String();
+        interpretOrderFromUser();
 
-        OrderList orderFromList = interpretOrderFromUser(receivedOrder);
+        if (showListChosen(OrderList.getChosenOrder())){
 
-        if (showListChosen(orderFromList)){
-
-            System.out.println(Order.giveListOfAvailableOrders());
-            orderFromList = interpretOrderFromUser(receivedOrder);
+            InterfaceMessages.listAvailableOrders(OrderList.getListOfAvailableOrders());
+            interpretOrderFromUser();
         }
 
-        connection.setOrderFromOrderList(orderFromList);
         connection.sendOrder();
     }
 
-    private OrderList interpretOrderFromUser(String receivedOrder)
+    private void interpretOrderFromUser()
             throws IOException, BadOrderException{
-        receivedOrder = interfaceInput.getOrder();
-        return Order.stringToOrderList(receivedOrder);
+        String receivedOrder = interfaceInput.getOrder();
+        OrderList.setOrderFromString(receivedOrder);
     }
 
     private boolean showListChosen(OrderList orderList){
@@ -110,8 +105,6 @@ public class MainClass {
         }
         catch (BadFeedbackOrderFromServer e){
 
-            //TODO this needs to close connection not receiving any data
-            //but not end the whole programme
             connection.endConnection();
             InterfaceMessages.errorMessages(e);
         }

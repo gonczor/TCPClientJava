@@ -8,7 +8,6 @@ public class Connection {
     private Socket socket;
     private PrintWriter printWriter;
     private BufferedReader bufferedReader;
-    private Order order;
 
     private final String ADDRESS = "127.0.0.1"; //192.168.1.2
     private final Integer portNumber = 12345;
@@ -21,21 +20,10 @@ public class Connection {
         bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
 
-    public void setOrderFromOrderList(OrderList orderList)
-            throws BadOrderException {
-        order = new Order(orderList);
-    }
-
-    public Order returnOrderFromOrderList(OrderList orderList)
-            throws BadOrderException {
-
-        return new Order(orderList);
-    }
-
     public void sendOrder()
             throws IOException{
 
-        printWriter.print(order.setOrderContent());
+        printWriter.print(OrderList.getChosenOrderContent());
         printWriter.flush();
     }
 
@@ -51,9 +39,10 @@ public class Connection {
             throws IOException, BadOrderException {
 
         String receivedFeedbackMessage = receiveMessage();
-        OrderList receivedFeedbackOrderList = Order.stringToOrderList(receivedFeedbackMessage);
-        Order receivedFeedbackOrder = returnOrderFromOrderList(receivedFeedbackOrderList);
-        if (!receivedFeedbackOrder.equals(order)){
+        System.out.println("received: " + receivedFeedbackMessage);
+        OrderList receivedFeedbackOrder = OrderList.stringToOrderList(receivedFeedbackMessage);
+
+        if (!receivedFeedbackOrder.equals(OrderList.getChosenOrder())){
             throw new BadFeedbackOrderFromServer();
         }
     }
@@ -64,9 +53,7 @@ public class Connection {
     */
     public void receiveData(){
 
-        switch (){
 
-        }
     }
 
 

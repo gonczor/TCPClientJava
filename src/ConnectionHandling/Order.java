@@ -33,7 +33,6 @@ public class Order {
             return OrderList.LIST;
         else
             throw new BadOrderException();
-
     }
 
     public String setOrderContent(){

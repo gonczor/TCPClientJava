@@ -15,6 +15,9 @@ public class InterfaceMessages {
 
         PrintStatements.print("Please enter order, or type in \'l\' to list available orders");
     }
+    public static void listAvailableOrders(String s){
+        PrintStatements.print(s);
+    }
 
     public static void errorMessages(Exception e){
 
