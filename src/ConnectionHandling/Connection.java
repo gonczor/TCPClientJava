@@ -1,5 +1,8 @@
 package ConnectionHandling;
 
+import Exceptions.BadFeedbackOrderFromServer;
+import Exceptions.BadOrderException;
+
 import java.io.*;
 import java.net.*;
 
@@ -23,6 +26,11 @@ public class Connection {
     public void sendOrder()
             throws IOException{
 
+        /*
+        TODO
+        This will be
+        Order.sendMessage();
+         */
         printWriter.print(OrderList.getChosenOrderContent());
         printWriter.flush();
     }
@@ -30,9 +38,7 @@ public class Connection {
     public String receiveMessage()
             throws IOException{
 
-        String receivedMessage;
-        receivedMessage = bufferedReader.readLine();
-        return receivedMessage;
+        return bufferedReader.readLine();
     }
 
     public void checkInitialMessage()

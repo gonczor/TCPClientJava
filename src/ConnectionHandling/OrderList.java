@@ -1,6 +1,8 @@
 package ConnectionHandling;
 
 
+import Exceptions.BadOrderException;
+
 public enum OrderList {
 
     WELCOME,
@@ -45,7 +47,7 @@ public enum OrderList {
 
     public static String getListOfAvailableOrders(){
 
-        String availableOrders = new String();
+        String availableOrders = "";
 
         for(OrderList ol : OrderList.values()){
 

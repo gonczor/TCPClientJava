@@ -1,7 +1,7 @@
-package ConnectionHandling;
+package Exceptions;
 
 public class BadFeedbackOrderFromServer
-        extends BadOrderException{
+        extends BadOrderException {
 
     @Override
     public String getMessage(){

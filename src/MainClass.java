@@ -2,6 +2,8 @@
 import java.io.IOException;
 import java.net.*;
 import ConnectionHandling.*;
+import Exceptions.BadFeedbackOrderFromServer;
+import Exceptions.BadOrderException;
 import Interface.*;
 
 public class MainClass {

@@ -1,4 +1,4 @@
-package ConnectionHandling;
+package Exceptions;
 
 public class BadOrderException
         extends Exception {
