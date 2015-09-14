@@ -16,6 +16,7 @@ public abstract class Order {
 
     public void sendOrder(){
         printWriter.print(order);
+        printWriter.flush();
     }
 
     public abstract void receiveMessage() throws IOException;

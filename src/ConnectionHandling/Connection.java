@@ -1,8 +1,5 @@
 package ConnectionHandling;
 
-import Exceptions.BadFeedbackOrderFromServer;
-import Exceptions.BadOrderException;
-
 import java.io.*;
 import java.net.*;
 
@@ -23,46 +20,6 @@ public class Connection {
         bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
 
-    public void sendOrder()
-            throws IOException{
-
-        /*
-        TODO
-        This will be
-        Order.sendMessage();
-         */
-        printWriter.print(OrderList.getChosenOrderContent());
-        printWriter.flush();
-    }
-
-    public String receiveMessage()
-            throws IOException{
-
-        return bufferedReader.readLine();
-    }
-
-    public void checkInitialMessage()
-            throws IOException, BadOrderException {
-
-        String receivedFeedbackMessage = receiveMessage();
-        System.out.println("received: " + receivedFeedbackMessage);
-        OrderList receivedFeedbackOrder = OrderList.stringToOrderList(receivedFeedbackMessage);
-
-        if (!receivedFeedbackOrder.equals(OrderList.getChosenOrder())){
-            throw new BadFeedbackOrderFromServer();
-        }
-    }
-
-    /*
-    Since the correctness of received order has been checked
-    passing orders entered by user is possible and safe.
-    */
-    public void receiveData(){
-
-
-    }
-
-
     public void endConnection()
             throws IOException{
 
@@ -76,5 +33,13 @@ public class Connection {
 
     public String getPortNumber(){
         return portNumber.toString();
+    }
+
+    public BufferedReader getBufferedReader(){
+        return bufferedReader;
+    }
+
+    public PrintWriter getPrintWriter(){
+        return printWriter;
     }
 }
