@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.net.*;
 import ConnectionHandling.*;
 import Exceptions.*;
 import Interface.*;
@@ -44,14 +43,17 @@ public class MainClass {
 
         InterfaceMessages.initialMessage();
 
-
         do{
             reiterateAfterBadOrderEntry = false;
             try{
 
                 Order order = getOrder();
                 order.sendOrder();
-                order.receiveMessage();
+                order.handleDataTransfer();
+            } catch (BadFeedbackOrderFromServer e){
+
+                InterfaceMessages.errorMessages(e);
+                connection.endConnection();
             } catch (BadOrderException e){
 
                 InterfaceMessages.errorMessages(e);
@@ -59,12 +61,14 @@ public class MainClass {
             }
         } while (reiterateAfterBadOrderEntry);
 
-        connection.endConnection();
+        if(!connection.connectionIsClosed())
+            connection.endConnection();
     }
 
     Order getOrder() throws IOException, BadOrderException{
         String orderFromUser = interfaceInput.getOrder();
         OrderFactory orderFactory = OrderFactory.getFactory(orderFromUser);
-        return orderFactory.createOrder(connection.getBufferedReader(), connection.getPrintWriter());
+        return orderFactory.createOrder(connection.getDataOutputStream(),
+                connection.getDataInputStream());
     }
 }

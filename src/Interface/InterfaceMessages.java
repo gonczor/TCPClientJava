@@ -1,6 +1,6 @@
 package Interface;
 
-import ConnectionHandling.Connection;
+import ConnectionHandling.*;
 
 public class InterfaceMessages {
 
@@ -13,10 +13,18 @@ public class InterfaceMessages {
 
     public static void initialMessage(){
 
-        PrintStatements.print("Please enter order, or type in \'l\' to list available orders");
+        PrintStatements.print("Please enter order. The list of available orders is following:");
+        listAvailableOrders();
     }
-    public static void listAvailableOrders(String s){
+
+    public static void listAvailableOrders(){
+        String s = OrderList.getListOfAvailableOrders();
         PrintStatements.print(s);
+    }
+
+    public static void showReceivedMessage(String message){
+
+        PrintStatements.print(message);
     }
 
     public static void errorMessages(Exception e){

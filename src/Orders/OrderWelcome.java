@@ -1,20 +1,17 @@
 package Orders;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import Interface.InterfaceMessages;
+
+import java.io.*;
 
 public class OrderWelcome extends Order{
-    public OrderWelcome(BufferedReader br, PrintWriter pr){
-        super(br, pr);
+    public OrderWelcome(DataOutputStream os, DataInputStream is){
+        super(os, is);
         order = "welcome";
     }
 
-    public void receiveMessage() throws IOException {
-        System.out.println(bufferedReader.readLine());
+    public void handleDataTransfer() throws IOException {
+        InterfaceMessages.showReceivedMessage(bufferedReader.readLine());
     }
 
-    public String toString(){
-        return order;
-    }
 }

@@ -3,8 +3,7 @@ package ConnectionHandling;
 public enum OrderList {
 
     WELCOME,
-    SEND_FILE,
-    LIST;
+    SEND_FILE;
 
     public static String getListOfAvailableOrders(){
 

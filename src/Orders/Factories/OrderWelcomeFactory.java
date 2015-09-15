@@ -2,12 +2,12 @@ package Orders.Factories;
 
 import Orders.*;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 
 public class OrderWelcomeFactory extends OrderFactory {
 
-    public Order createOrder(BufferedReader br, PrintWriter pr){
-        return new OrderWelcome(br, pr);
+    public Order createOrder(DataOutputStream os, DataInputStream is){
+        return new OrderWelcome(os, is);
     }
 }
