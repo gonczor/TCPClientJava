@@ -14,4 +14,7 @@ public class OrderWelcome extends Order{
         InterfaceMessages.showReceivedMessage(bufferedReader.readLine());
     }
 
+    public int getSizeOfDataTransferred() {
+        return 0;
+    }
 }

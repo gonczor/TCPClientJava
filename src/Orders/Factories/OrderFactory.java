@@ -11,7 +11,7 @@ public abstract class OrderFactory {
             throws BadOrderException{
         if(factory.equalsIgnoreCase("welcome"))
             return new OrderWelcomeFactory();
-        else if (factory.equalsIgnoreCase("send file"))
+        else if (factory.equalsIgnoreCase("send_file"))
             return new OrderSendFileFactory();
         else throw new BadOrderException();
     }

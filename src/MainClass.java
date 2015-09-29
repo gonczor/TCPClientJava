@@ -50,6 +50,7 @@ public class MainClass {
                 Order order = getOrder();
                 order.sendOrder();
                 order.handleDataTransfer();
+                InterfaceMessages.transferredDataSizeMessage(order.getSizeOfDataTransferred());
             } catch (BadFeedbackOrderFromServer e){
 
                 InterfaceMessages.errorMessages(e);

@@ -32,4 +32,9 @@ public class InterfaceMessages {
 
         System.err.println(e.getMessage());
     }
+
+    public static void transferredDataSizeMessage(int size){
+
+        PrintStatements.print("The size of received file is: " + size + " bytes.");
+    }
 }

@@ -38,12 +38,15 @@ public abstract class Order {
     }
 
     protected String receiveMessage() throws IOException{
-        return bufferedReader.readLine();
+
+    return bufferedReader.readLine();
     }
 
     public String toString(){
         return order;
     }
+
+    public abstract int getSizeOfDataTransferred();
 
     public abstract void handleDataTransfer()
             throws IOException, BadFeedbackOrderFromServer;
